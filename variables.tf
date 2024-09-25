@@ -59,6 +59,7 @@ variable "private_subnet_tags" {
   default = {}
 }
 
+
 variable "database_cidr_block" {
   type = list 
   validation {
