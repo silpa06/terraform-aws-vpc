@@ -8,7 +8,7 @@ variable "environment" {
 # optional variables
 variable "cidr_block" {
     type = string
-    default = "10.10.0.0/16"
+    default = "10.0.0.0/16"
 
 }
 
@@ -94,6 +94,18 @@ variable "private_route_table_vars" {
 }
 
 variable "database_route_table_vars" {
+  type = map 
+  default = {}
+}
+
+# VPC peering connection variables
+
+variable "is_peering_connection"{
+  type = bool
+  default = false
+}
+
+variable "vpc_peering_tags" {
   type = map 
   default = {}
 }
