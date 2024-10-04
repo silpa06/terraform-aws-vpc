@@ -6,7 +6,7 @@ resource "aws_vpc" "main" {
     var.common_tags,
     var.vpc_tags,
     {
-      Name = local.resource_name # vpc Name format is project-environment
+      Name = "${local.resource_name}" # vpc Name format is project-environment
     }
   )
 }
@@ -19,7 +19,7 @@ resource "aws_internet_gateway" "main" {
     var.common_tags,
     var.igw_tags,
     {
-      Name = local.resource_name
+      Name = "${local.resource_name}"
     }
   )
 }
@@ -73,13 +73,13 @@ resource "aws_subnet" "database" {
 # database subnet groups
 resource "aws_db_subnet_group" "db_group" {
   name       = local.resource_name
-  subnet_ids = aws_subnet.database[*].id
+  subnet_ids = [aws_subnet.database[*].id]
 
   tags = merge(
     var.common_tags,
     var.db_subnet_group_tags,
     {
-      Name = local.resource_name
+      Name = "${local.resource_name}"
     }
   )
 }
@@ -92,7 +92,7 @@ resource "aws_eip" "nat" {
 # NAT gw creation
 resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public[0].id
+  subnet_id     = [aws_subnet.public[0].id]
 
   tags = merge(
     var.common_tags,
